@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap');
+
+body {
+    background-image: url(back.jpg);
+    font-family: "Lugrasimo", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.stopwatch {
+    width: 90%;
+    max-width: 600px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url(background2.jpg);
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 40px 0;
+    color: #fff;
+    margin: 100px auto 0;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stopwatch h1{
+    margin-top: 60px;
+    font-size: 64px;
+    font-weight: 300;
+}
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttons img{
+    border-radius: 50%;
+    width: 50px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+.button img :nth-child( 2){
+   width: 80px;
+}
+#demotext {
+color: #e0dfdc;
+
+letter-spacing: .1em;
+text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0,0,0,0.9);
+color: #e0dfdc;
+margin: 80px;
+}
+    </style>
+</head>
+<body>
+    
+    <center><div id="demotext"> <h1>Stopwatch web application</h1></div></center>
+    <div class="stopwatch">
+        <h1 id="displayTime" class="displayTime">00:00:00</h1>
+        <div class="buttons">
+            <img src="stop.png" alt="" onclick="watchstop()">
+            <img src="start.png" alt="" onclick="watchstart()">
+            <img src="reset.png" alt="" onclick="watchreset()">
+        </div>
+    </div>
+    <script>
+        let seconds = 0;
+let minutes = 0;
+let hours = 0;
+let displayTime = document.getElementById("displayTime");
+let timer = null;
+
+function stopwatch(){
+    seconds++;
+    if(seconds == 60){
+        seconds = 0;
+        minutes++;
+        if(minutes == 60){
+            minutes = 0;
+            hours++;
+        }
+    }
+    let h = hours < 10 ? "0" + hours : hours;
+    let m = minutes < 10 ? "0" + minutes : minutes;
+    let s = seconds < 10 ? "0" + seconds : seconds;
+    
+    displayTime.innerHTML = h +":"+ m +":"+ s;
+}
+
+function watchstart(){
+    if(timer != null){
+        clearInterval(timer);
+    }
+    timer = setInterval(stopwatch, 1000);
+}
+
+function watchstop(){
+    clearInterval(timer);
+}
+
+function watchreset(){
+    clearInterval(timer);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    displayTime.innerHTML = "00:00:00";
+}
+
+    </script>
+</body>
+</html>
